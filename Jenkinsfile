@@ -4,16 +4,16 @@ pipeline {
     environment {
         DOCKER_COMPOSE_FILE = 'docker-compose.yml'
         // If you have any specific Docker Hub credentials
-        DOCKER_CREDENTIALS = 'dockerhub-credentials' 
+        DOCKER_CREDENTIALS = 'dockerhub-credentials'
     }
 
-   stage('Checkout') {
-    steps {
-        // Pull the latest code from GitHub repository using Personal Access Token (PAT)
-        git credentialsId: 'github-token', url: 'https://github.com/kushiogeti/devopsfinallab.git'
-    }
-}
-
+    stages {
+        stage('Checkout') {
+            steps {
+                // Pull the latest code from GitHub repository using Personal Access Token (PAT)
+                git credentialsId: 'github-token', url: 'https://github.com/kushiogeti/devopsfinallab.git'
+            }
+        }
 
         stage('Build Docker Images') {
             steps {
