@@ -7,13 +7,13 @@ pipeline {
         DOCKER_CREDENTIALS = 'dockerhub-credentials' 
     }
 
-    stages {
-        stage('Checkout') {
-            steps {
-                // Pull the latest code from the GitHub repository
-                git branch: 'main', url: 'https://github.com/yourusername/yourrepository.git'
-            }
-        }
+   stage('Checkout') {
+    steps {
+        // Pull the latest code from GitHub repository using Personal Access Token (PAT)
+        git credentialsId: 'github-token', url: 'https://github.com/kushiogeti/devopsfinallab.git'
+    }
+}
+
 
         stage('Build Docker Images') {
             steps {
