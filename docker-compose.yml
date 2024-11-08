@@ -1,29 +1,27 @@
-version: '3.8'
-
 services:
-  # Web Server (Nginx)
   web:
-    image: nginx:latest
-    container_name: web-server
+    image: nginx:latest  # Replace with your preferred web server image
     ports:
-      - "80:80"  # Exposes port 80 on the host to port 80 in the container
-    volumes:
-      - ./html:/usr/share/nginx/html  # Maps ./html directory to nginx's html directory
+      - "8081:80"
     depends_on:
-      - db  # Ensures that the database is started before the web server
+      - db
+    networks:
+      - app-network
+    volumes:
+      - ./html:/usr/share/nginx/html  # Mounting HTML files
 
-  # Database (MySQL)
   db:
-    image: mysql:5.7
-    container_name: mysql-db
+    image: mysql:latest  # Replace with your preferred database image
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: my_database  # Initializes a database
+      MYSQL_DATABASE: mydatabase
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
     ports:
-      - "3306:3306"  # Exposes port 3306 for database access
-    volumes:
-      - db-data:/var/lib/mysql  # Stores data on the host machine so it persists across restarts
+      - "3306:3306"
+    networks:
+      - app-network
 
-volumes:
-  db-data:
-    driver: local  # Defines the volume for MySQL data storage
+networks:
+  app-network:
+    driver: bridge
