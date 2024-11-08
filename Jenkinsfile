@@ -11,7 +11,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Pull the latest code from the GitHub repository
-                git branch: 'master', url: 'https://github.com/yourusername/yourrepository.git'
+                git branch: 'main', url: 'https://github.com/yourusername/yourrepository.git'
             }
         }
 
